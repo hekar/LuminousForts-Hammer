@@ -1,0 +1,24 @@
+﻿		"LuminousForts"
+		{
+			"GameDir"		"__MOD_DIR__"
+			"hammer"
+			{
+				"GameData0"		"__MOD_DIR__fgd\luminousfortsbase.fgd"
+				"GameData1"		"__MOD_DIR__luminousforts.fgd"
+				"TextureFormat"		"5"
+				"MapFormat"		"4"
+				"DefaultTextureScale"		"0.250000"
+				"DefaultLightmapScale"		"16"
+				"GameExe"		"__MOD_ENGINE__hl2.exe"
+				"DefaultSolidEntity"		"func_detail"
+				"DefaultPointEntity"		"info_player_blue"
+				"BSP"		"__SOURCESDK_BIN__vbsp.exe"
+				"Vis"		"__SOURCESDK_BIN__vvis.exe"
+				"Light"		"__SOURCESDK_BIN__vrad.exe"
+				"GameExeDir"		"__MOD_ENGINE__"
+				"MapDir"		"__MOD_MAPS__"
+				"BSPDir"		"__MOD_MAPS__"
+				"CordonTexture"		"tools/toolsskybox"
+				"MaterialExcludeCount"		"0"
+			}
+		}
