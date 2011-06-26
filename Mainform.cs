@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
@@ -73,12 +72,16 @@ namespace LuminousFortsHammer
                         GameConfig gameconfig = new LuminousFortsGameConfig();
                         try
                         {
-                            gameconfig.WriteGameConfig(fullpath, username);
-                            MessageBox.Show("Successfully wrote gameconfig", "Success");
-                        }
-                        catch (IOException)
-                        {
-                            MessageBox.Show("Failure to open mod template", "File Error");
+                            Boolean wrote = gameconfig.WriteGameConfig(fullpath, username);
+                            
+                            if (wrote)
+                            {
+                            	MessageBox.Show("Successfully wrote gameconfig", "Success");
+                            }
+                            else
+                            {
+                            	throw new Exception();
+                            }
                         }
                         catch (Exception)
                         {
@@ -119,6 +122,17 @@ namespace LuminousFortsHammer
             {
                 return "";
             }
+        }
+        
+        void ExitToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	Application.Exit();
+        }
+        
+        void AboutToolStripMenuItemClick(object sender, EventArgs e)
+        {
+        	About dlg = new About();
+        	dlg.Show();
         }
     }
 }
