@@ -22,9 +22,12 @@ namespace LuminousFortsHammer
 	            template = reader.ReadToEnd();
 	            reader.Close();
             } 
-            catch (IOException)
+            catch (IOException ex)
             {
             	MessageBox.Show("Failure to read mod_template.txt");
+            	Logger.Instance.Write("(LuminousFortsGameConfig::WriteGameConfig) Failure to open mod template");
+            	Logger.Instance.Write(ex.Message);
+            	Logger.Instance.Write(ex.StackTrace);
             	return false;
             }
             
@@ -42,14 +45,27 @@ namespace LuminousFortsHammer
 	            config = confreader.ReadToEnd();
 	            confreader.Close();
             }
-            catch (IOException)
+            catch (IOException ex)
             {
             	MessageBox.Show("Failure to read game configuration");
+            	Logger.Instance.Write("(LuminousFortsGameConfig::WriteGameConfig) Failure to read Game Configuration");
+            	Logger.Instance.Write(ex.Message);
+            	Logger.Instance.Write(ex.StackTrace);
             	return false;
             }
 
-            Regex re = new Regex("\"Games\".*\\n\\s*?{\\s*?\\n");
-            merged = re.Replace(config, "\"Games\"\n\t{\n\t\t" + template + "\n");
+            Regex re = null;
+            if (!config.Contains("Games"))
+            {
+	            re = new Regex("\"Configs\".*\\n\\s*?{\\s*?\\n");
+	            merged = re.Replace(config, "\"Configs\"\n{\n\t\"Games\"\n\t{\n\t\t" + template + "\n\t}\n");
+            }
+            else
+            {
+            	re = new Regex("\"Games\".*\\n\\s*?{\\s*?\\n");
+	            merged = re.Replace(config, "\"Games\"\n\t{\n\t\t" + template + "\n");
+            }
+
             
             try 
             {
@@ -57,9 +73,12 @@ namespace LuminousFortsHammer
 	            writer.Write(merged);
 	            writer.Close();            	
             } 
-            catch (IOException)
+            catch (IOException ex)
             {
             	MessageBox.Show("Failure to write to game configuration");
+            	Logger.Instance.Write("(LuminousFortsGameConfig::WriteGameConfig) Failure to Write to Game Configuration");
+            	Logger.Instance.Write(ex.Message);
+            	Logger.Instance.Write(ex.StackTrace);
             	return false;
             }
             

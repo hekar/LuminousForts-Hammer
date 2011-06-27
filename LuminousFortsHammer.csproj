@@ -36,7 +36,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -54,6 +53,7 @@
     <Compile Include="AskUserName.Designer.cs">
       <DependentUpon>AskUserName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="LuminousFortsGameConfig.cs" />
     <Compile Include="GameConfig.cs" />
     <Compile Include="Const.cs" />

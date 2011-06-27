@@ -19,6 +19,7 @@ namespace LuminousFortsHammer
         private void Mainform_Load(object sender, EventArgs e)
         {
             help.Text = Const.Instance().HelpText;
+            Logger.Instance.Write("Starting LuminousForts Hammer Autoconfigurator");
         }
 
         private void okay_Click(object sender, EventArgs e)
@@ -44,6 +45,8 @@ namespace LuminousFortsHammer
             else
             {
                 MessageBox.Show("Could not find your Steam folder. Please select it", "Cannot Find Steam Folder");
+                Logger.Instance.Write("Failure to find Steam Directory");
+                
                 FolderBrowserDialog dlg = new FolderBrowserDialog();
 
                 try
@@ -64,6 +67,11 @@ namespace LuminousFortsHammer
 
             if (Directory.Exists(fullpath))
             {
+            	if (!fullpath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+            	{
+            		fullpath += Path.DirectorySeparatorChar;
+            	}
+            	
                 try
                 {
                     String username = AskUserName();
@@ -77,21 +85,27 @@ namespace LuminousFortsHammer
                             if (wrote)
                             {
                             	MessageBox.Show("Successfully wrote gameconfig", "Success");
+                            	Application.Exit();
                             }
                             else
                             {
                             	throw new Exception();
                             }
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
                             MessageBox.Show("Failure to write gameconfig", "Failure");
+                            Logger.Instance.Write("(Mainform::Okay_Click) Failure to write game config");
+            				Logger.Instance.Write(ex.Message);
+            				Logger.Instance.Write(ex.StackTrace);
                         }
                     }
                 }
-                catch (KeyNotFoundException)
+                catch (KeyNotFoundException ex)
                 {
-                    // too lazy to do anything for now
+					Logger.Instance.Write("(Mainform::Okay_Click) KeyNotFoundException");
+    				Logger.Instance.Write(ex.Message);
+    				Logger.Instance.Write(ex.StackTrace);                    
                 }
             }
             else
