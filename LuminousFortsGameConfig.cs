@@ -66,6 +66,7 @@ namespace LuminousFortsHammer
 	            merged = re.Replace(config, "\"Games\"\n\t{\n\t\t" + template + "\n");
             }
 
+            merged = merged.Replace("\\\"", "\"");
             
             try 
             {
